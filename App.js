@@ -9,24 +9,32 @@ const getRandomNumber = limit => {
   return Math.floor(Math.random() * limit);
 }
 
-const Giphy = ({search}) => {
-  const [imgSrc, setImgSrc] = React.useState("");
+class Giphy extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      imgSrc: ""
+    };
+  }
 
-  const searchForGif = evt => {
-    let url = `https://api.giphy.com/v1/gifs/search?api_key=${API_KEY}&limit=${LIMIT}&q=${search}`;
+  componentDidMount() {
+    let url = `https://api.giphy.com/v1/gifs/search?api_key=${API_KEY}&limit=${LIMIT}&q=${this.props.search}`;
     fetch(url)
     .then(response => response.json())
     .then(json => {
-      setImgSrc(json[getRandomNumber(json.length)]);
+      this.setState({
+        imgSrc: json[getRandomNumber(json.length)]
+      });
     });
   }
-  
-  return (
-    <View>
-      <Image source={imgSrc}/>
-      <Text>Powered By GIPHY</Text>
-    </View>
-  )
+  render() {
+    return (
+      <View>
+        <Image source={this.state.imgSrc}/>
+        <Text>Powered By GIPHY</Text>
+      </View>
+    )
+  }
 }
 
 const App = () => {
