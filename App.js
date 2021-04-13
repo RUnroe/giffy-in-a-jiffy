@@ -40,7 +40,7 @@ const App = () => {
       <Giphy search="coding" />
       <Giphy search="fun" />
       <Giphy search="puppy" /> 
-      <Text>Powered By GIPHY</Text>
+      <Text style={styles.text}>Powered By GIPHY</Text>
       <View style={styles.buttonView}>
         <Button 
           title="refresh"
@@ -55,7 +55,11 @@ const styles = StyleSheet.create({
   image: {
     width: 250,
     height: 250,
-    alignSelf: "center"
+    alignSelf: "center",
+    margin: 2
+  },
+  text: {
+    textAlign: "center"
   },
   buttonView: {
     width: 175,
