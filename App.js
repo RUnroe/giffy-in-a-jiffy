@@ -14,7 +14,7 @@ const Giphy = ({search}) => {
   const [uri, setUri] = React.useState("");
   React.useEffect(() => {
     getUri();
-  });
+  }, []);
 
   const getUri = () => {
     fetch(`https://api.giphy.com/v1/gifs/search?api_key=${API_KEY}&limit=${LIMIT}&q=${search}`)
@@ -33,7 +33,7 @@ const Giphy = ({search}) => {
 
 
 const App = () => {
-  const [refreshCount, setRefreshCount] = React.useState(0);
+  // const [refreshCount, setRefreshCount] = React.useState(0);
   return (
     <View>
       <Giphy search="happy" />
@@ -44,7 +44,10 @@ const App = () => {
       <View style={styles.buttonView}>
         <Button 
           title="refresh"
-          onPress={() => {setRefreshCount(refreshCount+1)}}
+          onPress={() => {
+            // setRefreshCount(refreshCount+1);
+            window.location.reload();
+          }}
         />
       </View>
     </View>
