@@ -9,33 +9,6 @@ const getRandomNumber = limit => {
   return Math.floor(Math.random() * limit);
 }
 
-// class Giphy extends Component {
-//   constructor(props) {
-//     super(props);
-//     this.state = {
-//       imgSrc: ""
-//     };
-//   }
-
-//   componentDidMount() {
-//     let url = `https://api.giphy.com/v1/gifs/search?api_key=${API_KEY}&limit=${LIMIT}&q=${this.props.search}`;
-//     fetch(url)
-//     .then(response => response.json())
-//     .then(json => {
-//       console.log(json);
-//       this.setState({
-//         imgSrc: json.data[getRandomNumber(json.data.length)].images.downsized_medium.url
-//       });
-//     });
-//   }
-//   render() {
-//     return (
-//       <View>
-//         <Image style={styles.image} source={{uri: this.state.imgSrc}}/>
-//       </View>
-//     )
-//   }
-// }
 
 const Giphy = ({search}) => {
   const [uri, setUri] = React.useState("");
@@ -68,10 +41,12 @@ const App = () => {
       <Giphy search="fun" />
       <Giphy search="puppy" /> 
       <Text>Powered By GIPHY</Text>
-      <Button 
-        title="refresh"
-        onPress={() => {setRefreshCount(refreshCount+1)}}
-      />
+      <View style={styles.buttonView}>
+        <Button 
+          title="refresh"
+          onPress={() => {setRefreshCount(refreshCount+1)}}
+        />
+      </View>
     </View>
   );
 }
@@ -79,7 +54,12 @@ const App = () => {
 const styles = StyleSheet.create({
   image: {
     width: 250,
-    height: 250
+    height: 250,
+    alignSelf: "center"
+  },
+  buttonView: {
+    width: 175,
+    alignSelf: "center"
   }
 
 
