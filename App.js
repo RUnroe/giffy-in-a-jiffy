@@ -9,35 +9,58 @@ const getRandomNumber = limit => {
   return Math.floor(Math.random() * limit);
 }
 
-class Giphy extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      imgSrc: ""
-    };
-  }
+// class Giphy extends Component {
+//   constructor(props) {
+//     super(props);
+//     this.state = {
+//       imgSrc: ""
+//     };
+//   }
 
-  componentDidMount() {
-    let url = `https://api.giphy.com/v1/gifs/search?api_key=${API_KEY}&limit=${LIMIT}&q=${this.props.search}`;
-    fetch(url)
+//   componentDidMount() {
+//     let url = `https://api.giphy.com/v1/gifs/search?api_key=${API_KEY}&limit=${LIMIT}&q=${this.props.search}`;
+//     fetch(url)
+//     .then(response => response.json())
+//     .then(json => {
+//       console.log(json);
+//       this.setState({
+//         imgSrc: json.data[getRandomNumber(json.data.length)].images.downsized_medium.url
+//       });
+//     });
+//   }
+//   render() {
+//     return (
+//       <View>
+//         <Image style={styles.image} source={{uri: this.state.imgSrc}}/>
+//       </View>
+//     )
+//   }
+// }
+
+const Giphy = ({search}) => {
+  const [uri, setUri] = React.useState("");
+  React.useEffect(() => {
+    getUri();
+  });
+
+  const getUri = () => {
+    fetch(`https://api.giphy.com/v1/gifs/search?api_key=${API_KEY}&limit=${LIMIT}&q=${search}`)
     .then(response => response.json())
     .then(json => {
-      console.log(json);
-      this.setState({
-        imgSrc: json.data[getRandomNumber(json.data.length)].images.downsized_medium.url
-      });
+      setUri(json.data[getRandomNumber(json.data.length)].images.downsized_medium.url);
     });
   }
-  render() {
-    return (
-      <View>
-        <Image style={styles.image} source={{uri: this.state.imgSrc}}/>
-      </View>
-    )
-  }
+  console.log("render");
+  return (
+    <View>
+      <Image style={styles.image} source={{uri: uri}}/>
+    </View>
+  )
 }
 
+
 const App = () => {
+  const [refreshCount, setRefreshCount] = React.useState(0);
   return (
     <View>
       <Giphy search="happy" />
@@ -47,6 +70,7 @@ const App = () => {
       <Text>Powered By GIPHY</Text>
       <Button 
         title="refresh"
+        onPress={() => {setRefreshCount(refreshCount+1)}}
       />
     </View>
   );
