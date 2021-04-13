@@ -1,6 +1,6 @@
 import { StatusBar } from 'expo-status-bar';
 import React,{Component} from 'react';
-import { StyleSheet, Text, TextInput, View } from 'react-native';
+import { StyleSheet, Text, TextInput, View, Button, Image } from 'react-native';
 
 const API_KEY = "Tyiskjc69fbO2GtmKoB2xUd0AqHxAl4k";
 const LIMIT = 10;
@@ -22,16 +22,16 @@ class Giphy extends Component {
     fetch(url)
     .then(response => response.json())
     .then(json => {
+      console.log(json);
       this.setState({
-        imgSrc: json[getRandomNumber(json.length)]
+        imgSrc: json.data[getRandomNumber(json.data.length)].images.downsized_medium.url
       });
     });
   }
   render() {
     return (
       <View>
-        <Image source={this.state.imgSrc}/>
-        <Text>Powered By GIPHY</Text>
+        <Image style={styles.image} source={{uri: this.state.imgSrc}}/>
       </View>
     )
   }
@@ -40,11 +40,30 @@ class Giphy extends Component {
 const App = () => {
   return (
     <View>
+      <Giphy search="happy" />
       <Giphy search="coding" />
       <Giphy search="fun" />
       <Giphy search="puppy" /> 
+      <Text>Powered By GIPHY</Text>
+      <Button 
+        title="refresh"
+      />
     </View>
   );
 }
 
+const styles = StyleSheet.create({
+  image: {
+    width: 250,
+    height: 250
+  }
+
+
+});
+
+
+
+
 export default App;
+
+
