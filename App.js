@@ -3,22 +3,27 @@ import { StyleSheet, Text, View, Button } from 'react-native';
 import Giphy from './src/components/giphy';
 
 
+//Limit is exclusive
+const getRandomNumber = limit => {
+  return Math.floor(Math.random() * limit);
+}
+
 
 const App = () => {
-  // const [refreshCount, setRefreshCount] = React.useState(0);
+  const [refreshCount, setRefreshCount] = React.useState(0);
   return (
     <View>
-      <Giphy search="happy" />
-      <Giphy search="coding" />
-      <Giphy search="fun" />
-      <Giphy search="puppy" /> 
+      <Giphy search="happy" rand={getRandomNumber(10)} />
+      <Giphy search="coding" rand={getRandomNumber(10)} />
+      <Giphy search="fun" rand={getRandomNumber(10)} />
+      <Giphy search="puppy" rand={getRandomNumber(10)}/> 
       <Text style={styles.text}>Powered By GIPHY</Text>
       <View style={styles.buttonView}>
         <Button 
           title="refresh"
           onPress={() => {
-            // setRefreshCount(refreshCount+1);
-            window.location.reload();
+            setRefreshCount(refreshCount+1);
+            // window.location.reload();
           }}
         />
       </View>

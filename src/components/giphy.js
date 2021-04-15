@@ -4,23 +4,20 @@ import {StyleSheet, View, Image } from 'react-native';
 
 const API_KEY = "Tyiskjc69fbO2GtmKoB2xUd0AqHxAl4k";
 const LIMIT = 10;
-//Limit is exclusive
-const getRandomNumber = limit => {
-  return Math.floor(Math.random() * limit);
-}
 
 
-const Giphy = ({search}) => {
+
+const Giphy = ({search, rand}) => {
   const [uri, setUri] = React.useState("");
   React.useEffect(() => {
     getUri();
-  }, []);
+  }, [rand]);
 
   const getUri = () => {
     fetch(`https://api.giphy.com/v1/gifs/search?api_key=${API_KEY}&limit=${LIMIT}&q=${search}`)
     .then(response => response.json())
     .then(json => {
-      setUri(json.data[getRandomNumber(json.data.length)].images.downsized_medium.url);
+      setUri(json.data[rand].images.downsized_medium.url);
     });
   }
   console.log("render");
